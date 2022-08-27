@@ -1,3 +1,1 @@
-polySphere -r 3 -sx 10 -sy 10 -ax 0 1 0 -cuv 2 -ch 1;
-
-polySphere -r 12 -sx 4 -sy 4 -ax 0 1 0 -cuv 2 -ch 1;
+polySphere -radius 5 -subdivisionsX 16 -subdivisionsY 16 -axis 0 1 0 -createUVs 2 -constructionHistory 1
