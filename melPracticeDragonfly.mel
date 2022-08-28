@@ -1,0 +1,81 @@
+/* Make a simple dragonfly using MEL
+- Head: Sphere
+- Eyes: Two spheres, side of head
+- Thorax: Sphere, squashed into oval
+- Butt: Sphere, squashed into oval, tapered on one end
+- Wings: Four spheres, flattened, stretched; front two larger and longer than back two.
+Bonus:
+- Legs
+*/
+
+// IMPORTANT!!! In order for this model to come out correctly, you MUST have a BLANK Maya file to begin with (make sure to check your outliner for any leftover data like from a "Mirror" command.)
+
+// Create the thorax
+polySphere -radius 10 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "thorax";
+scale -relative 1 0.5 0.6;
+// Grab the right hemisphere of the faces and squish it towards the center
+select -replace thorax.f[0:3] thorax.f[14:23] thorax.f[34:43] thorax.f[54:63] thorax.f[74:83] thorax.f[94:103] thorax.f[114:123] thorax.f[134:143] thorax.f[154:163] thorax.f[174:183] thorax.f[194:203] thorax.f[214:223] thorax.f[234:243] thorax.f[254:263] thorax.f[274:283] thorax.f[294:303] thorax.f[314:323] thorax.f[334:343] thorax.f[354:363] thorax.f[374:383] thorax.f[394:399] ;
+scale -relative -pivot 0cm 5cm 0cm 0.6 1 1;
+select -clear;
+
+// Create the head
+polySphere -radius 7 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "head";
+move -relative 9.5 5.1 0;
+scale -relative 1 1 0.6;
+// Create the eyes
+polySphere -radius 4 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "eye1";
+scale -relative 1 1 0.6;
+move -relative 10 5.7 4.6;
+polySphere -radius 4 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "eye2";
+scale -relative 1 1 0.6;
+move -relative 10 5.7 -4.6;
+select -clear;
+
+// Create the tail
+polySphere -radius 3 -subdivisionsX 20 -subdivisionsY -20 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "tail";
+// Scale and taper the tail towards the thorax
+select -replace tail.f[0:3] tail.f[14:23] tail.f[34:43] tail.f[54:63] tail.f[74:83] tail.f[94:103] tail.f[114:123] tail.f[134:143] tail.f[154:163] tail.f[174:183] tail.f[194:203] tail.f[214:223] tail.f[234:243] tail.f[254:263] tail.f[274:283] tail.f[294:303] tail.f[314:323] tail.f[334:343] tail.f[354:363] tail.f[374:383] tail.f[394:399] ;
+scale -relative -pivot -1.06345e-07cm -2.22644e-09cm 2.94275cm 8 1 1 ;
+select -deselect tail.f[0:3] tail.f[14:23] tail.f[34:43] tail.f[54:63] tail.f[74:83] tail.f[94:103] tail.f[114:123] tail.f[134:143] tail.f[154:163] tail.f[174:183] tail.f[194:203] tail.f[214:223] tail.f[234:243] tail.f[254:263] tail.f[274:283] tail.f[294:303] tail.f[314:323] tail.f[334:343] tail.f[354:363] tail.f[374:383] tail.f[394:399] ;
+scale -relative 1.4 1 1;
+select -replace tail;
+move -relative -31 0 0;
+select -clear;
+
+// Create the wings
+// Wing 1
+polySphere -radius 3 -subdivisionsX 20 -subdivisionsY -20 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "wing";
+scale -relative 1 0.2 10;
+move -relative 0 0 30;
+select -replace wing.f[9:18] wing.f[29:38] wing.f[49:58] wing.f[69:78] wing.f[89:98] wing.f[109:118] wing.f[129:138] wing.f[149:158] wing.f[169:178] wing.f[189:198] wing.f[209:218] wing.f[229:238] wing.f[249:258] wing.f[269:278] wing.f[289:298] wing.f[309:318] wing.f[329:338] wing.f[349:358] wing.f[369:378] wing.f[389:398] ;
+scale -relative -pivot 0cm 0.6cm 30cm 1.244444 1 0.433333 ;
+select -clear;
+// Rotate the wing to be slightly angled from the body
+select -replace wing;
+move -relative 0 7 0;
+rotate -relative -objectSpace -forceOrderXYZ -12 -5 -23;
+select -clear;
+// Mirror over X to make Wing 2
+select -replace wing;
+polyMirrorFace  -cutMesh 1 -axis 1 -axisDirection 1 -mergeMode 0 -mergeThresholdType 0 -mergeThreshold 0.001 -mirrorAxis 2 -mirrorPosition 0.3 -smoothingAngle 30 -flipUVs 0 -ch 1 wing;
+polySeparate -userSpecifiedShells 1 -inPlace 1 wing;
+connectAttr -force polyMirror1.firstNewFace polySeparate1.startFace;
+connectAttr -force polyMirror1.lastNewFace polySeparate1.endFace;
+select -clear;
+// Create the other two wings by mirroring over the Z axis
+select -replace wing2 wing4;
+polyMirrorFace  -cutMesh 0 -axis 2 -axisDirection 1 -mergeMode 0 -mergeThresholdType 0 -mergeThreshold 0.001 -mirrorAxis 2 -mirrorPosition 0 -smoothingAngle 30 -flipUVs 0 -ch 1 wing2;
+polyMirrorFace  -cutMesh 0 -axis 2 -axisDirection 1 -mergeMode 0 -mergeThresholdType 0 -mergeThreshold 0.001 -mirrorAxis 2 -mirrorPosition 0 -smoothingAngle 30 -flipUVs 0 -ch 1 wing4;
+polySeparate -userSpecifiedShells 1 -inPlace 1 wing4;
+connectAttr -force polyMirror2.firstNewFace polySeparate2.startFace;
+connectAttr -force polyMirror2.lastNewFace polySeparate2.endFace;
+polySeparate -userSpecifiedShells 1 -inPlace 1 wing2;
+connectAttr -force polyMirror2.firstNewFace polySeparate3.startFace;
+connectAttr -force polyMirror2.lastNewFace polySeparate3.endFace;
+select -clear;
+
+//Freeze Transformations
+select -replace tail eye2 wing8 wing6 eye1 wing|wing2|wing2 thorax wing10 head;
+makeIdentity -apply true -translate 1 -rotate 1 -scale 1 -normal 0 -preserveNormals 1;
+select -clear;
+// Delete History
