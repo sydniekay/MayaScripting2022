@@ -17,6 +17,10 @@ float $groundScaleX = (($stemHeight / 2) + 1);
 float $groundRadius = ($stemRadius * 3);
 float $groundPosition = ($centerPosition * -1);
 
+
+float $petalLength = ($centerRadius * 2);
+float $petalPositionX = ($centerRadius + ($centerRadius / 2));
+
 // Stem
 polyCylinder 
     -name "stem" 
@@ -27,7 +31,7 @@ polyCylinder
     -subdivisionsZ 1 
     -axis 0 1 0 
     -roundCap 0 
-    -createUVs 3 
+    -createUVs 3  
     -constructionHistory 1;
 
 // Center
@@ -41,20 +45,51 @@ polySphere
 move -relative 0 ($centerPosition) 0;
 scale -relative 1 0.25 1;
 
-// Petal(s)
-
-// Leaf
-
 // Ground
 polySphere 
     -name "ground" 
     -radius ($groundRadius)
     -subdivisionsX 16 -subdivisionsY 16 
-    -axis 0 1 0 
+    -axis 0 1 0  
     -createUVs 2 
     -constructionHistory 1;
 move -relative 0 ($groundPosition); 
-scale -relative ($groundScaleX) 1 1 ;
+scale -relative ($groundScaleX) 1 ($groundScaleX) ;
 select -replace ground.f[0:111] ground.f[224:239] ;
 doDelete;
 
+// Petal(s)
+polyCylinder 
+    -name "petal1" 
+    -radius 1 
+    -height 2
+    -subdivisionsX 16 
+    -subdivisionsY 1 
+    -subdivisionsZ 1 
+    -axis 0 1 0 
+    -roundCap 0 
+    -createUVs 3 
+    -constructionHistory 1;
+scale -relative ($petalLength) 0.05 1;
+move -relative ($petalPositionX) ($centerPosition) 0;
+polyMirrorFace  
+    -cutMesh 0 
+    -axis 0 
+    -axisDirection 1 
+    -mergeMode 0 
+    -mergeThresholdType 0 
+    -mergeThreshold 0.001 
+    -mirrorAxis 2 
+    -mirrorPosition 0 
+    -smoothingAngle 30 
+    -flipUVs 0 
+    -ch 1 
+    petal1;
+select -replace petal1;
+
+//Duplicate the two 
+
+/* I can't figure out how to make the rest of the petals, 
+because the pivot point is not directly in the center between the two...
+I need it to be in the center in order for me to rotate around the midpoint
+*/
