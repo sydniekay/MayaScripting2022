@@ -1,0 +1,60 @@
+// Ideas for Dynamic models...
+/*  random model generation with foliage
+    creating flowers with different kinds or amount of petals
+    randomly generated mushroom tops and stems
+*/
+
+// I should probably create the form I want to work with, and then mess with making it dynamic afterwards...
+
+// Variables
+float $stemHeight = 15;
+float $stemRadius = 0.5;
+
+float $centerRadius = ($stemRadius * 2);
+float $centerPosition = ($stemHeight / 2);
+
+float $groundScaleX = (($stemHeight / 2) + 1);
+float $groundRadius = ($stemRadius * 3);
+float $groundPosition = ($centerPosition * -1);
+
+// Stem
+polyCylinder 
+    -name "stem" 
+    -radius ($stemRadius) 
+    -height ($stemHeight) 
+    -subdivisionsX 16 
+    -subdivisionsY 1 
+    -subdivisionsZ 1 
+    -axis 0 1 0 
+    -roundCap 0 
+    -createUVs 3 
+    -constructionHistory 1;
+
+// Center
+polySphere 
+    -name "center" 
+    -radius ($centerRadius) 
+    -subdivisionsX 16 -subdivisionsY 16 
+    -axis 0 1 0 
+    -createUVs 2 
+    -constructionHistory 1;
+move -relative 0 ($centerPosition) 0;
+scale -relative 1 0.25 1;
+
+// Petal(s)
+
+// Leaf
+
+// Ground
+polySphere 
+    -name "ground" 
+    -radius ($groundRadius)
+    -subdivisionsX 16 -subdivisionsY 16 
+    -axis 0 1 0 
+    -createUVs 2 
+    -constructionHistory 1;
+move -relative 0 ($groundPosition); 
+scale -relative ($groundScaleX) 1 1 ;
+select -replace ground.f[0:111] ground.f[224:239] ;
+doDelete;
+
