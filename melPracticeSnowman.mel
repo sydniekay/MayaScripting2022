@@ -3,7 +3,7 @@ polySphere -radius 3 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 
 // move it up to sit on the "floor" plane. Essentially, move in the Y direction the same size as the radius
 move -relative -objectSpace -worldSpaceDistance 0 3 0 ;
 
-// create the top of the snowman
+// create the top of the snowman. Practice editing an existing command in another line.
 polySphere -radius 1 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
 polySphere -e -radius 2 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
 
