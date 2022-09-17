@@ -1,0 +1,46 @@
+// Create a function that generates geometry for a spiral staircase based on user input (arguments).
+
+/* Number of stairs to be created
+* Stair depth --> int $stairDepth
+* Stair width --> int $stairWidth
+* Stair height --> int $stairHeight
+* Initial step --> int $step
+* Stair amount --> int $stepAmount
+* Stair pivot point or offset --> use xform
+* Step height --> $riser
+* Step rotation --> $rotation
+*/
+
+// Step 1: Create the stair
+// Step 2: Move the pivot point
+// Step 3: Translate and rotate around a central point.
+// Bonus: Create a center pole for the steps to "stick" to
+
+
+
+proc GenerateStaircase(float $stairWidth, float $stairHeight, float $stairDepth, int $stepAmount, float $riser, float $rotation)
+{
+    for ($step = 0; $step < $stepAmount; $step++)
+    {
+        // Create the step
+        polyCube 
+            -width $stairWidth 
+            -height $stairHeight 
+            -depth $stairDepth 
+            -subdivisionsX 1 
+            -subdivisionsY 1 
+            -subdivisionsZ 1 
+            -axis 0 1 0 
+            -createUVs 4 
+            -constructionHistory 1;
+        // Move the pivot point (x = half of the stair width to the left, y = riser height, z = half of depth)
+        // xform will move the pivot object based, vs world based.
+        xform -rotatePivot ($stairWidth / 1.5) 0 0;
+        // Translate and rotate
+        move -relative 0 ($riser * $step) 0;
+        rotate -relative -objectSpace -forceOrderXYZ 0 ($rotation * $step) 0;
+    }
+}
+
+GenerateStaircase(7, 0.7, 2, 30, 0.7, 20);
+
