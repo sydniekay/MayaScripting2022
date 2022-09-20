@@ -16,10 +16,30 @@
 // Step 3: Translate and rotate around a central point.
 // Bonus: Create a center pole for the steps to "stick" to
 
+// Create pole (cylinder) on the origin
+// Radius --> $poleRadius
+// Height --> $poleHeight = $stairHeight + $riser * $stairAmount
+// Move --> $poleLocation = $poleHeight/2 - $stairHeight/2
 
 
-proc GenerateStaircase(float $stairWidth, float $stairHeight, float $stairDepth, int $stepAmount, float $riser, float $rotation)
+
+proc GenerateStaircase(float $poleRadius, float $stairWidth, float $stairHeight, float $stairDepth, int $stepAmount, float $riser, float $rotation)
 {
+    float $poleHeight = $riser * $stepAmount;
+    float $poleLocation = ($poleHeight/2) - ($stairHeight/2);
+    // Create the pole
+    polyCylinder 
+        -radius $poleRadius 
+        -height $poleHeight 
+        -subdivisionsX 20 
+        -subdivisionsY 1 
+        -subdivisionsZ 1 
+        -axis 0 1 0 
+        -roundCap 0 
+        -createUVs 3 
+        -constructionHistory 1;
+    move -relative 0 $poleLocation 0 ;
+
     for ($step = 0; $step < $stepAmount; $step++)
     {
         // Create the step
@@ -32,15 +52,13 @@ proc GenerateStaircase(float $stairWidth, float $stairHeight, float $stairDepth,
             -subdivisionsZ 1 
             -axis 0 1 0 
             -createUVs 4 
-            -constructionHistory 1;
-        // Move the pivot point (x = half of the stair width to the left, y = riser height, z = half of depth)
-        // xform will move the pivot object based, vs world based.
-        xform -rotatePivot ($stairWidth / 1.5) 0 0;
+            -constructionHistory 1 ;
+        move -relative ($poleRadius + ($stairWidth/2)) 0 0 ;
+        xform -worldSpace -rotatePivot 0 0 0 ;
         // Translate and rotate
         move -relative 0 ($riser * $step) 0;
         rotate -relative -objectSpace -forceOrderXYZ 0 ($rotation * $step) 0;
     }
 }
 
-GenerateStaircase(7, 0.7, 2, 30, 0.7, 20);
-
+GenerateStaircase(1, 6, 0.5, 1.5, 20, 0.8, 30);
