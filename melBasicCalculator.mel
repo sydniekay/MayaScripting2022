@@ -1,0 +1,64 @@
+/* 
+Sub-Functions:
+
+- Sum (addition) of *2 **or more*** float values
+- Difference (subtraction ) of *2 **or more*** values
+- Multiplication of *2 **or more*** values
+- Division of *2 **or more*** values
+- Power (x raised power n, eg. x³)
+- Mean (or average)
+- Median
+
+Calculator Function:
+
+- Print a statement specifying the **input numbers**, the **operation** that was performed, and the **result** of the operation. 
+For example, "3 + 5 + 8 = 16" or "The sum of 3, 5, and 8 is 16".
+- Each operation should return its results to the calculator function, which should, in turn, return the result.
+
+*/
+
+// Addition
+global proc Sum(float $num1, float $num2, float $num3)
+{
+    float $sum = $num1 + $num2 + $num3;
+    print ("The sum of " + $num1 + ", " + $num2 + ", and " + $num3 + " is " + $sum + ".\n");
+}
+
+Add(12, 45.03, 682.66);
+
+
+// Subtraction
+global proc float Difference()
+{
+
+}
+
+// Multiplication
+global proc float Multiply()
+{
+
+}
+
+// Division
+global proc float Divide()
+{
+    
+}
+
+// Power
+global proc float Exponent()
+{
+    
+}
+
+// Mean
+global proc float Mean()
+{
+    
+}
+
+// Median
+global proc float Median()
+{
+    
+}
