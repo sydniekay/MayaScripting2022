@@ -18,13 +18,22 @@ For example, "3 + 5 + 8 = 16" or "The sum of 3, 5, and 8 is 16".
 */
 
 // Addition
-global proc Sum(float $num1, float $num2, float $num3)
+
+global proc Sum(float $numbers[])
 {
-    float $sum = $num1 + $num2 + $num3;
-    print ("The sum of " + $num1 + ", " + $num2 + ", and " + $num3 + " is " + $sum + ".\n");
+    float $sumTotal = 0;
+
+    float $arraySize = size($numbers); 
+    for ($index = 0; $index < $arraySize; $index++)
+    {
+        //add the index number to the total
+        $sumTotal += $numbers[$index];
+    }
+
+    print($sumTotal);
 }
 
-Add(12, 45.03, 682.66);
+// Sum({1, 2, 3});
 
 
 // Subtraction
@@ -62,3 +71,42 @@ global proc float Median()
 {
     
 }
+
+// Calculator
+global proc Calculator(float $userInput [], int $operation)
+{
+    if ($operation == 1)
+    {
+        // print Sum
+    }
+    else if ($operation == 2)
+    {
+        // print Diference
+    }
+        else if ($operation == 3)
+    {
+        // print Multiply
+    }
+        else if ($operation == 4)
+    {
+        // print Divide
+    }
+        else if ($operation == 5)
+    {
+        // print Exponent
+    }
+        else if ($operation == 6)
+    {
+        // print Mean
+    }
+        else if ($operation == 7)
+    {
+        // print Median
+    }
+    else
+    {
+        print("Please input a valid operation type as a value, 1 through 7.\n");
+    } 
+}
+
+Calculator({/*array*/}, 0)
