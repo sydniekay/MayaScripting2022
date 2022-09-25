@@ -148,30 +148,37 @@ global proc Calculator(float $userInput [], int $operation)
     if ($operation == 1)
     {
         // print Sum
+        print ("The sum of " + floatArrayToString($userInput, " + ") + " is " + Sum($userInput) + "!\n");
     }
     else if ($operation == 2)
     {
         // print Diference
+        print ("The difference of " + floatArrayToString($userInput, " - ") + " is " + Difference($userInput) + "!\n");
     }
         else if ($operation == 3)
     {
         // print Multiply
+        print ("The result of " + floatArrayToString($userInput, " x ") + " is " + Multiply($userInput) + "!\n");
     }
         else if ($operation == 4)
     {
         // print Divide
+        print ("The result of " + floatArrayToString($userInput, " / ") + " is " + Divide($userInput) + "!\n");
     }
         else if ($operation == 5)
     {
-        // print Exponent
+        // print Power
+        print ("The result of " + floatArrayToString($userInput, " ^ ") + " is " + Power($userInput[0], $userInput[1]) + "!\n");
     }
         else if ($operation == 6)
     {
         // print Mean
+        print ("The mean of " + floatArrayToString($userInput, " , ") + " is " + Mean($userInput) + "!\n");
     }
         else if ($operation == 7)
     {
         // print Median
+        print ("The median of " + floatArrayToString($userInput, " , ") + " is " + Median($userInput) + "!\n");
     }
     else
     {
@@ -179,4 +186,4 @@ global proc Calculator(float $userInput [], int $operation)
     } 
 }
 
-Calculator({/*array*/}, 0)
+Calculator({1, 2, 3, 4, 5}, 10);
