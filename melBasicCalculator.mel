@@ -23,7 +23,7 @@ global proc float Sum(float $numbers[])
 {
     float $sumTotal = 0;
 
-    float $arraySize = size($numbers); 
+    int $arraySize = size($numbers); 
     for ($index = 0; $index < $arraySize; $index++)
     {
         //add the number in the index to the total
@@ -39,7 +39,7 @@ global proc float Difference(float $numbers[])
 {
     float $diffTotal = $numbers[0];
 
-    float $arraySize = size($numbers); 
+    int $arraySize = size($numbers); 
     for ($index = 1; $index < $arraySize; $index++)
     {
         //subtract the number in the index to the total
@@ -54,7 +54,7 @@ global proc float Multiply(float $numbers[])
 {
     float $multiTotal = 1;
 
-    float $arraySize = size($numbers); 
+    int $arraySize = size($numbers); 
     for ($index = 0; $index < $arraySize; $index++)
     {
         //multiply the number in the index to the total
@@ -69,7 +69,7 @@ global proc float Divide(float $numbers[])
 {
     float $divTotal = $numbers[0];
 
-    float $arraySize = size($numbers); 
+    int $arraySize = size($numbers); 
     for ($index = 1; $index < $arraySize; $index++)
     {
         //divide the number in the index from the previous index number and assign to the total
@@ -94,7 +94,7 @@ global proc float Mean(float $numbers[])
 {
     float $sumTotal = 0;
 
-    float $arraySize = size($numbers); 
+    int $arraySize = size($numbers); 
     for ($index = 0; $index < $arraySize; $index++)
     {
         //add the number in the index to the total
@@ -105,10 +105,41 @@ global proc float Mean(float $numbers[])
     return $mean; 
 }
 
-// Median
-global proc float Median()
+// In order to determine the Median, I need to know if there's an even or odd value to find the center.
+global proc int IsEven(int $number)
 {
+    if (($number % 2) == 0)
+    {
+        return true;
+    } 
     
+    return false;
+}
+
+// Median
+global proc float Median(float $numbers[])
+{
+    // Establish the array
+    // Sort the array
+    // Modulus 2: if odd, that's your answer; if even, find the average between the two
+
+    $numbers = `sort $numbers`;
+    int $arraySize = size($numbers);  
+
+    float $median;
+    if (IsEven($arraySize))
+    {
+        // Take the index number, plus the index number -1, and /2
+        $median = (($numbers[$arraySize/2] + $numbers[($arraySize/2) - 1]) / 2);
+        //print ($median + "\n");
+    }
+    else
+    {
+        $median = $numbers[$arraySize/2];
+        //print ($median + "\n");
+    }
+
+    return $median;
 }
 
 // Calculator
