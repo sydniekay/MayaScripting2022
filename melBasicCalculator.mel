@@ -70,7 +70,7 @@ global proc float Divide(float $numbers[])
     float $divTotal = $numbers[0];
 
     float $arraySize = size($numbers); 
-    for ($index = 0; $index < $arraySize; $index++)
+    for ($index = 1; $index < $arraySize; $index++)
     {
         //divide the number in the index to the total
         $divTotal /= $numbers[$index];
