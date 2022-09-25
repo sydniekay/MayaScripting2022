@@ -57,17 +57,26 @@ global proc float Multiply(float $numbers[])
     float $arraySize = size($numbers); 
     for ($index = 0; $index < $arraySize; $index++)
     {
-        //subtract the number in the index to the total
-        $multiTotal -= $numbers[$index];
+        //multiply the number in the index to the total
+        $multiTotal *= $numbers[$index];
     }
 
-    return $diffTotal;
+    return $multiTotal;
 }
 
 // Division
-global proc float Divide()
+global proc float Divide(float $numbers[])
 {
-    
+    float $divTotal = $numbers[0];
+
+    float $arraySize = size($numbers); 
+    for ($index = 0; $index < $arraySize; $index++)
+    {
+        //divide the number in the index to the total
+        $divTotal /= $numbers[$index];
+    }
+
+    return $divTotal;
 }
 
 // Power
