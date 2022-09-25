@@ -19,33 +19,49 @@ For example, "3 + 5 + 8 = 16" or "The sum of 3, 5, and 8 is 16".
 
 // Addition
 
-global proc Sum(float $numbers[])
+global proc float Sum(float $numbers[])
 {
     float $sumTotal = 0;
 
     float $arraySize = size($numbers); 
     for ($index = 0; $index < $arraySize; $index++)
     {
-        //add the index number to the total
+        //add the number in the index to the total
         $sumTotal += $numbers[$index];
     }
 
-    print($sumTotal);
+    return $sumTotal; 
 }
-
-// Sum({1, 2, 3});
 
 
 // Subtraction
-global proc float Difference()
+global proc float Difference(float $numbers[])
 {
+    float $diffTotal = $numbers[0];
 
+    float $arraySize = size($numbers); 
+    for ($index = 1; $index < $arraySize; $index++)
+    {
+        //subtract the number in the index to the total
+        $diffTotal -= $numbers[$index];
+    }
+
+    return $diffTotal;
 }
 
 // Multiplication
-global proc float Multiply()
+global proc float Multiply(float $numbers[])
 {
+    float $multiTotal = 1;
 
+    float $arraySize = size($numbers); 
+    for ($index = 0; $index < $arraySize; $index++)
+    {
+        //subtract the number in the index to the total
+        $multiTotal -= $numbers[$index];
+    }
+
+    return $diffTotal;
 }
 
 // Division
