@@ -72,7 +72,7 @@ global proc float Divide(float $numbers[])
     float $arraySize = size($numbers); 
     for ($index = 1; $index < $arraySize; $index++)
     {
-        //divide the number in the index to the total
+        //divide the number in the index from the previous index number and assign to the total
         $divTotal /= $numbers[$index];
     }
 
@@ -80,9 +80,12 @@ global proc float Divide(float $numbers[])
 }
 
 // Power
-global proc float Exponent()
+global proc float Power(float $num1, float $num2)
 {
-    
+    // Operators don't work for power in MEL, so you have to use the "pow" command
+    float $powerTotal = pow ($num1, $num2);
+
+    return $powerTotal;
 }
 
 // Mean
