@@ -88,10 +88,21 @@ global proc float Power(float $num1, float $num2)
     return $powerTotal;
 }
 
+
 // Mean
-global proc float Mean()
+global proc float Mean(float $numbers[])
 {
+    float $sumTotal = 0;
+
+    float $arraySize = size($numbers); 
+    for ($index = 0; $index < $arraySize; $index++)
+    {
+        //add the number in the index to the total
+        $sumTotal += $numbers[$index];
+    }
     
+    $mean = ($sumTotal/$arraySize);
+    return $mean; 
 }
 
 // Median
